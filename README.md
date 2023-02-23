@@ -16,6 +16,7 @@ Purpose of the application: The user can save the places he has visited and like
 ## What happened in this Swift Code?
 
 - CoreData is used. The information is saved in the local database.
+- CocoaTouchClass is used.
 - MapKit is used.
 - CoreLocation is used for the current location of the user.
 - Navigation feature has been added.
