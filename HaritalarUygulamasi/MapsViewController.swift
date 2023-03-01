@@ -22,12 +22,12 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     var locationManager = CLLocationManager() //Konum yöneticisi, konum ayarları 1
     
-    var secilenLatitude : Double = 0.0 //Seçilen noktayı kaydediyoruz5
-    var secilenLongitude : Double = 0.0
+    var chosenLatitude : Double = 0.0 //Seçilen noktayı kaydediyoruz5
+    var chosenLongitude : Double = 0.0
     
     //verileri aktarmak için8
-    var secilenIsim = ""
-    var secilenId : UUID?
+    var chosenName = ""
+    var chosenId : UUID?
     
     var annotationTitle = ""
     var annotationSubtitle = ""
@@ -44,39 +44,39 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         locationManager.startUpdatingLocation() //Konumu güncellemeyi başlat, konum ayarları
         
         //İşaretleme işlemi3
-        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(konumSec(gestureRecognizer:)))
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(locationSelect(gestureRecognizer:)))
         gestureRecognizer.minimumPressDuration = 2
         mapView.addGestureRecognizer(gestureRecognizer )
         
         //verileri aktarmak için8
-        if secilenIsim != "" {
+        if chosenName != "" {
             //core datadan verileri çek
-            if let uuidString = secilenId?.uuidString {
+            if let uuidString = chosenId?.uuidString {
                 
                 //listeden daha önce kaydettiğimiz konumlara tıkladığımızda mapsView'da göstermesi için pin9
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let context = appDelegate.persistentContainer.viewContext
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Yer")
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Location")
                 fetchRequest.predicate = NSPredicate(format: "id = %@", uuidString)
                 //Filtreleme işlemi= id'si yazacağımız argümanları olanları getir anlamında id=%@ uygulanır 
                 fetchRequest.returnsObjectsAsFaults = false
                 
                 do {
-                    let sonuclar = try context.fetch(fetchRequest)
+                    let results = try context.fetch(fetchRequest)
                     
-                    if sonuclar.count > 0 {
-                        for sonuc in sonuclar as! [NSManagedObject] {
+                    if results.count > 0 {
+                        for result in results as! [NSManagedObject] {
                             
-                            if let isim = sonuc.value(forKey: "isim") as? String {
-                                annotationTitle = isim
+                            if let name = result.value(forKey: "name") as? String {
+                                annotationTitle = name
                                 
-                                if let not = sonuc.value(forKey: "not") as? String {
-                                    annotationSubtitle = not
+                                if let note = result.value(forKey: "note") as? String {
+                                    annotationSubtitle = note
                                     
-                                    if let latitude = sonuc.value(forKey: "latitude") as? Double {
+                                    if let latitude = result.value(forKey: "latitude") as? Double {
                                         annotationLatitude = latitude
                                         
-                                        if let longitude = sonuc.value(forKey: "longitude") as? Double {
+                                        if let longitude = result.value(forKey: "longitude") as? Double {
                                             annotationLongitude = longitude
                                         }
                                     }
@@ -135,11 +135,11 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     //Navigasyon için kod bloğu
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if secilenIsim != "" {
+        if chosenName != "" {
             
             let location = CLLocation(latitude: annotationLatitude, longitude: annotationLongitude)
             
-            CLGeocoder().reverseGeocodeLocation(location) { placemarkDizisi, Hata in
+            CLGeocoder().reverseGeocodeLocation(location) { placemarkDizisi, Error in
                 
                 if let placemarks = placemarkDizisi {
                     if placemarks.count > 0 {
@@ -163,20 +163,20 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
 
-    @objc func konumSec(gestureRecognizer : UILongPressGestureRecognizer) {
+    @objc func locationSelect(gestureRecognizer : UILongPressGestureRecognizer) {
           
         if gestureRecognizer.state == .began {
             
-            let dokunulanNokta = gestureRecognizer.location(in: mapView)
-            let dokunulanKoordinat = mapView.convert(dokunulanNokta, toCoordinateFrom: mapView)
+            let touchedPoint = gestureRecognizer.location(in: mapView)
+            let touchedCoordinate = mapView.convert(touchedPoint, toCoordinateFrom: mapView)
             
-            secilenLatitude = dokunulanKoordinat.latitude
-            secilenLongitude = dokunulanKoordinat.longitude
+            chosenLatitude = touchedCoordinate.latitude
+            chosenLongitude = touchedCoordinate.longitude
             //Seçilen noktayı kaydediyoruz5
             
             //işaretleme işlemi
             let annotation = MKPointAnnotation()
-            annotation.coordinate = dokunulanKoordinat
+            annotation.coordinate = touchedCoordinate
             annotation.title = yerTextLabel.text //ismi kullanıcıya seçtiriyoruz
             annotation.subtitle = notTextLabel.text
             mapView.addAnnotation(annotation)
@@ -190,7 +190,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //print(locations[0].coordinate.longitude)
         
         //Harıtayı oynatmak2 için kod blokları. Eğer add butonuna tıklanırsa bizim koordinatlarımıza git
-        if secilenIsim == "" {
+        if chosenName == "" {
             let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
             let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             let region = MKCoordinateRegion(center: location, span: span)
@@ -203,23 +203,23 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let yeniYer = NSEntityDescription.insertNewObject(forEntityName: "Yer", into: context)
+        let newLocation = NSEntityDescription.insertNewObject(forEntityName: "Location", into: context)
         
-        yeniYer.setValue(yerTextLabel.text, forKey: "isim")
-        yeniYer.setValue(notTextLabel.text, forKey: "not")
-        yeniYer.setValue(secilenLatitude, forKey: "latitude")
-        yeniYer.setValue(secilenLongitude, forKey: "longitude")
-        yeniYer.setValue(UUID(), forKey: "id")
+        newLocation.setValue(yerTextLabel.text, forKey: "name")
+        newLocation.setValue(notTextLabel.text, forKey: "note")
+        newLocation.setValue(chosenLatitude, forKey: "latitude")
+        newLocation.setValue(chosenLongitude, forKey: "longitude")
+        newLocation.setValue(UUID(), forKey: "id")
         
         do {
             try context.save()
-            print("kaydedildi")
+            print("saved")
         } catch {
-            print("hata")
+            print("error")
         }
         
         //Haritada yeni pin oluşturup kaydettikten sonra güncellenmiş listeye geri dönüyor.
-        NotificationCenter.default.post(name: NSNotification.Name("YerOlusturuldu"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("LocationCreated"), object: nil)
         navigationController?.popViewController(animated: true )
         
     }
