@@ -13,12 +13,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     //verileri çekmek için7
-    var isimDizisi = [String]()
-    var idDizisi = [UUID]()
+    var nameArray = [String]()
+    var idArray = [UUID]()
     
     //verileri aktarmak için8
-    var secilenYerİsmi = ""
-    var secilenYerId : UUID?
+    var chosenLocationName = ""
+    var chosenLocationId : UUID?
     
         
     override func viewDidLoad() {
@@ -27,42 +27,42 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButonTiklandi))
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickedaAddButton))
     
-        veriAl()
+        getData()
     
     }
     
     //Haritada yeni pin oluşturup kaydettikten sonra güncellenmiş listeye geri dönüyor.
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(veriAl), name: NSNotification.Name("YerOlusturuldu"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("LocationCreated"), object: nil)
     }
     
     //verileri çekmek için7
-    @objc func veriAl () {
+    @objc func getData () {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Yer")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Location")
         
         do {
             
-            let sonuclar = try context.fetch(request)
+            let results = try context.fetch(request)
             
-            isimDizisi.removeAll(keepingCapacity: false)
-            idDizisi.removeAll(keepingCapacity: false)
+            nameArray.removeAll(keepingCapacity: false)
+            idArray.removeAll(keepingCapacity: false)
             
-            if sonuclar.count > 0 {
+            if results.count > 0 {
                 
-                for sonuc in sonuclar as! [NSManagedObject] {
+                for result in results as! [NSManagedObject] {
                     
-                    if let isim = sonuc.value(forKey: "isim") as? String {
-                        isimDizisi.append(isim)
+                    if let name = result.value(forKey: "name") as? String {
+                        nameArray.append(name)
                     }
                     
-                    if let id = sonuc.value(forKey: "id") as? UUID {
-                        idDizisi.append(id)
+                    if let id = result.value(forKey: "id") as? UUID {
+                        idArray.append(id)
                     }
                     
                 }
@@ -71,33 +71,33 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
         } catch {
-            print("hata")
+            print("Error")
         }
     }
     
-    @objc func addButonTiklandi () {
+    @objc func clickedaAddButton() {
         
         //verileri aktarmak için8
-        secilenYerİsmi = ""
+        chosenLocationName = ""
         
          performSegue(withIdentifier: "toMapsVC", sender: nil )
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isimDizisi.count
+        return nameArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = isimDizisi[indexPath.row]
+        cell.textLabel?.text = nameArray[indexPath.row]
         return cell
     }
     
     //verileri aktarmak için8
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        secilenYerİsmi = isimDizisi[indexPath.row]
-        secilenYerId = idDizisi[indexPath.row]
+        chosenLocationName = nameArray[indexPath.row]
+        chosenLocationId = idArray[indexPath.row]
         performSegue(withIdentifier: "toMapsVC", sender: nil)
     }
     
@@ -105,8 +105,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMapsVC" {
             let destinationVC = segue.destination as! MapsViewController
-            destinationVC.secilenIsim = secilenYerİsmi
-            destinationVC.secilenId = secilenYerId
+            destinationVC.chosenId = chosenLocationId
         }
     }
     

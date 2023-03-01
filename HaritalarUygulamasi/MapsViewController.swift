@@ -14,11 +14,11 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var yerTextLabel: UITextField!
-    @IBOutlet weak var notTextLabel: UITextField!
+    @IBOutlet weak var locationTextLabel: UITextField!
+    @IBOutlet weak var noteTextLabel: UITextField!
     //ismi kullanıcıya seçtiriyoruz4
     
-    @IBOutlet weak var kaydetButon: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     
     var locationManager = CLLocationManager() //Konum yöneticisi, konum ayarları 1
     
@@ -46,7 +46,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //İşaretleme işlemi3
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(locationSelect(gestureRecognizer:)))
         gestureRecognizer.minimumPressDuration = 2
-        mapView.addGestureRecognizer(gestureRecognizer )
+        mapView.addGestureRecognizer(gestureRecognizer)
         
         //verileri aktarmak için8
         if chosenName != "" {
@@ -88,8 +88,8 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                             let coordinate = CLLocationCoordinate2D(latitude: annotationLatitude, longitude: annotationLongitude)
                             annotation.coordinate = coordinate
                             mapView.addAnnotation(annotation)
-                            yerTextLabel.text = annotationTitle
-                            notTextLabel.text = annotationSubtitle
+                            locationTextLabel.text = annotationTitle
+                            noteTextLabel.text = annotationSubtitle
                             
                             //eğer add butona değil de listede kaydettiğimiz herhangi bir pine gitmek istiyorsak oranın coordinatlarına götür
                             locationManager.startUpdatingLocation()
@@ -119,12 +119,12 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
         if pinView == nil {
             
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView?.canShowCallout = true
             pinView?.tintColor = .red
             
-            let buton = UIButton(type: .detailDisclosure)
-            pinView?.rightCalloutAccessoryView = buton
+            let button = UIButton(type: .detailDisclosure)
+            pinView?.rightCalloutAccessoryView = button
 
         }
         else {
@@ -144,8 +144,8 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 if let placemarks = placemarkDizisi {
                     if placemarks.count > 0 {
                         
-                        let yeniPlaceMark = MKPlacemark(placemark: placemarks[0])
-                        let item = MKMapItem(placemark: yeniPlaceMark)
+                        let newPlaceMark = MKPlacemark(placemark: placemarks[0])
+                        let item = MKMapItem(placemark: newPlaceMark)
                         item.name = self.annotationTitle
                         let launchOption = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
                         
@@ -177,8 +177,8 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             //işaretleme işlemi
             let annotation = MKPointAnnotation()
             annotation.coordinate = touchedCoordinate
-            annotation.title = yerTextLabel.text //ismi kullanıcıya seçtiriyoruz
-            annotation.subtitle = notTextLabel.text
+            annotation.title = locationTextLabel.text //ismi kullanıcıya seçtiriyoruz
+            annotation.subtitle = noteTextLabel.text
             mapView.addAnnotation(annotation)
             
         }
@@ -198,15 +198,15 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
-    @IBAction func kaydetButton(_ sender: Any) {
+    @IBAction func saveButton(_ sender: Any) {
          
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         let newLocation = NSEntityDescription.insertNewObject(forEntityName: "Location", into: context)
         
-        newLocation.setValue(yerTextLabel.text, forKey: "name")
-        newLocation.setValue(notTextLabel.text, forKey: "note")
+        newLocation.setValue(locationTextLabel.text, forKey: "name")
+        newLocation.setValue(noteTextLabel.text, forKey: "note")
         newLocation.setValue(chosenLatitude, forKey: "latitude")
         newLocation.setValue(chosenLongitude, forKey: "longitude")
         newLocation.setValue(UUID(), forKey: "id")

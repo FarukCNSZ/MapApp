@@ -53,48 +53,48 @@
                                 <rect key="frame" x="0.0" y="213" width="393" height="557"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Yer ismi" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pHY-mt-qT9">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pHY-mt-qT9">
                                 <rect key="frame" x="16" y="110" width="361" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Not" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AHG-u4-Em3">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Note" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AHG-u4-Em3">
                                 <rect key="frame" x="16" y="158" width="361" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gh-Zl-b3A">
-                                <rect key="frame" x="158" y="778" width="77" height="35"/>
+                                <rect key="frame" x="166" y="778" width="61" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Kaydet"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Save"/>
                                 <connections>
-                                    <action selector="kaydetButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M9s-18-C9b"/>
+                                    <action selector="saveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fma-Lh-k6x"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8gh-Zl-b3A" firstAttribute="top" secondItem="zVp-An-GcI" secondAttribute="bottom" constant="8" id="6lz-ct-p5Z"/>
-                            <constraint firstItem="pHY-mt-qT9" firstAttribute="trailing" secondItem="AHG-u4-Em3" secondAttribute="trailing" id="8D9-1x-mEJ"/>
-                            <constraint firstItem="pHY-mt-qT9" firstAttribute="leading" secondItem="AHG-u4-Em3" secondAttribute="leading" id="Akk-hi-k2Y"/>
-                            <constraint firstItem="pHY-mt-qT9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="BH0-1F-OLe"/>
-                            <constraint firstItem="zVp-An-GcI" firstAttribute="centerX" secondItem="8gh-Zl-b3A" secondAttribute="centerX" id="E2S-uJ-XMN"/>
-                            <constraint firstItem="AHG-u4-Em3" firstAttribute="centerX" secondItem="zVp-An-GcI" secondAttribute="centerX" id="Jjf-09-jCT"/>
-                            <constraint firstItem="AHG-u4-Em3" firstAttribute="top" secondItem="pHY-mt-qT9" secondAttribute="bottom" constant="14" id="NKH-oJ-ltD"/>
-                            <constraint firstItem="zVp-An-GcI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="URE-9y-qJY"/>
-                            <constraint firstItem="zVp-An-GcI" firstAttribute="top" secondItem="AHG-u4-Em3" secondAttribute="bottom" constant="21" id="ZxW-bv-iku"/>
-                            <constraint firstItem="pHY-mt-qT9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="d8l-c7-RPP"/>
-                            <constraint firstItem="pHY-mt-qT9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="7" id="gUs-4S-CrP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8gh-Zl-b3A" secondAttribute="bottom" constant="5" id="lfJ-12-bPW"/>
+                            <constraint firstItem="pHY-mt-qT9" firstAttribute="trailing" secondItem="AHG-u4-Em3" secondAttribute="trailing" id="1bw-7F-APR"/>
+                            <constraint firstItem="pHY-mt-qT9" firstAttribute="leading" secondItem="AHG-u4-Em3" secondAttribute="leading" id="1cV-uK-31Y"/>
+                            <constraint firstItem="8gh-Zl-b3A" firstAttribute="top" secondItem="zVp-An-GcI" secondAttribute="bottom" constant="8" id="7SU-iD-S3l"/>
+                            <constraint firstItem="zVp-An-GcI" firstAttribute="centerX" secondItem="8gh-Zl-b3A" secondAttribute="centerX" id="8tn-H1-zLY"/>
+                            <constraint firstItem="AHG-u4-Em3" firstAttribute="centerX" secondItem="zVp-An-GcI" secondAttribute="centerX" id="9W5-5U-Rlf"/>
+                            <constraint firstItem="pHY-mt-qT9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NAR-JN-iGr"/>
+                            <constraint firstItem="zVp-An-GcI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TuB-Ts-rtD"/>
+                            <constraint firstItem="zVp-An-GcI" firstAttribute="top" secondItem="AHG-u4-Em3" secondAttribute="bottom" constant="21" id="gR7-oM-7Um"/>
+                            <constraint firstItem="pHY-mt-qT9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="hPS-wg-nIc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8gh-Zl-b3A" secondAttribute="bottom" constant="5" id="hba-ew-zhA"/>
+                            <constraint firstItem="pHY-mt-qT9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="7" id="nf8-oP-ZKs"/>
+                            <constraint firstItem="AHG-u4-Em3" firstAttribute="top" secondItem="pHY-mt-qT9" secondAttribute="bottom" constant="14" id="zsy-v8-Ofr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vRg-om-k6b"/>
                     <connections>
-                        <outlet property="kaydetButon" destination="8gh-Zl-b3A" id="Mg4-cs-XJW"/>
+                        <outlet property="locationTextLabel" destination="pHY-mt-qT9" id="eKc-x7-4DL"/>
                         <outlet property="mapView" destination="zVp-An-GcI" id="xEC-n7-LDk"/>
-                        <outlet property="notTextLabel" destination="AHG-u4-Em3" id="g4n-H2-NOV"/>
-                        <outlet property="yerTextLabel" destination="pHY-mt-qT9" id="KNd-lN-SPk"/>
+                        <outlet property="noteTextLabel" destination="AHG-u4-Em3" id="tdo-R0-MG2"/>
+                        <outlet property="saveButton" destination="8gh-Zl-b3A" id="3oR-3W-nEi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
