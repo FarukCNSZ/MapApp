@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F038AF27295C6C10002DDEEC /* HaritalarUygulamasi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaritalarUygulamasi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F038AF27295C6C10002DDEEC /* mapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F038AF2A295C6C10002DDEEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F038AF2C295C6C10002DDEEC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F038AF2E295C6C10002DDEEC /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		F038AF28295C6C10002DDEEC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F038AF27295C6C10002DDEEC /* HaritalarUygulamasi.app */,
+				F038AF27295C6C10002DDEEC /* mapApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,9 +76,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F038AF26295C6C10002DDEEC /* HaritalarUygulamasi */ = {
+		F038AF26295C6C10002DDEEC /* mapApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F038AF3E295C6C11002DDEEC /* Build configuration list for PBXNativeTarget "HaritalarUygulamasi" */;
+			buildConfigurationList = F038AF3E295C6C11002DDEEC /* Build configuration list for PBXNativeTarget "mapApp" */;
 			buildPhases = (
 				F038AF23295C6C10002DDEEC /* Sources */,
 				F038AF24295C6C10002DDEEC /* Frameworks */,
@@ -88,9 +88,9 @@
 			);
 			dependencies = (
 			);
-			name = HaritalarUygulamasi;
+			name = mapApp;
 			productName = HaritalarUygulamasi;
-			productReference = F038AF27295C6C10002DDEEC /* HaritalarUygulamasi.app */;
+			productReference = F038AF27295C6C10002DDEEC /* mapApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F038AF22295C6C10002DDEEC /* Build configuration list for PBXProject "HaritalarUygulamasi" */;
+			buildConfigurationList = F038AF22295C6C10002DDEEC /* Build configuration list for PBXProject "mapApp" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,7 +121,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F038AF26295C6C10002DDEEC /* HaritalarUygulamasi */,
+				F038AF26295C6C10002DDEEC /* mapApp */,
 			);
 		};
 /* End PBXProject section */
@@ -347,7 +347,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F038AF22295C6C10002DDEEC /* Build configuration list for PBXProject "HaritalarUygulamasi" */ = {
+		F038AF22295C6C10002DDEEC /* Build configuration list for PBXProject "mapApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F038AF3C295C6C11002DDEEC /* Debug */,
@@ -356,7 +356,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F038AF3E295C6C11002DDEEC /* Build configuration list for PBXNativeTarget "HaritalarUygulamasi" */ = {
+		F038AF3E295C6C11002DDEEC /* Build configuration list for PBXNativeTarget "mapApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F038AF3F295C6C11002DDEEC /* Debug */,
