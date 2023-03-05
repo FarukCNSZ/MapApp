@@ -39,7 +39,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //verileri çekmek için7
-    @objc func getData () {
+    @objc func getData() {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -105,6 +105,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMapsVC" {
             let destinationVC = segue.destination as! MapsViewController
+            destinationVC.chosenName = chosenLocationName
             destinationVC.chosenId = chosenLocationId
         }
     }

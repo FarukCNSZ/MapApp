@@ -18,7 +18,6 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     @IBOutlet weak var noteTextLabel: UITextField!
     //ismi kullanıcıya seçtiriyoruz4
     
-    @IBOutlet weak var saveButton: UIButton!
     
     var locationManager = CLLocationManager() //Konum yöneticisi, konum ayarları 1
     
@@ -45,7 +44,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
         //İşaretleme işlemi3
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(locationSelect(gestureRecognizer:)))
-        gestureRecognizer.minimumPressDuration = 2
+        gestureRecognizer.minimumPressDuration = 3
         mapView.addGestureRecognizer(gestureRecognizer)
         
         //verileri aktarmak için8
@@ -78,29 +77,30 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                                         
                                         if let longitude = result.value(forKey: "longitude") as? Double {
                                             annotationLongitude = longitude
+                                            
+                                            let annotation = MKPointAnnotation()
+                                            annotation.title = annotationTitle
+                                            annotation.subtitle = annotationSubtitle
+                                            let coordinate = CLLocationCoordinate2D(latitude: annotationLatitude, longitude: annotationLongitude)
+                                            annotation.coordinate = coordinate
+                                            mapView.addAnnotation(annotation)
+                                            locationTextLabel.text = annotationTitle
+                                            noteTextLabel.text = annotationSubtitle
+                                            
+                                            //eğer add butona değil de listede kaydettiğimiz herhangi bir pine gitmek istiyorsak oranın coordinatlarına götür
+                                            locationManager.stopUpdatingLocation()
+                                            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                                            let region = MKCoordinateRegion(center: coordinate, span: span)
+                                            mapView.setRegion(region, animated: true)
+                                            
                                         }
                                     }
                                 }
-                            } 
-                            let annotation = MKPointAnnotation()
-                            annotation.title = annotationTitle
-                            annotation.subtitle = annotationSubtitle
-                            let coordinate = CLLocationCoordinate2D(latitude: annotationLatitude, longitude: annotationLongitude)
-                            annotation.coordinate = coordinate
-                            mapView.addAnnotation(annotation)
-                            locationTextLabel.text = annotationTitle
-                            noteTextLabel.text = annotationSubtitle
-                            
-                            //eğer add butona değil de listede kaydettiğimiz herhangi bir pine gitmek istiyorsak oranın coordinatlarına götür
-                            locationManager.startUpdatingLocation()
-                            let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-                            let region = MKCoordinateRegion(center: coordinate, span: span)
-                            mapView.setRegion(region, animated: true)
-                            
+                            }
                         }
                     }
-                } catch {
-                    
+                } catch let error {
+                    print("Error", error)
                 }
             }
         } else {
@@ -137,11 +137,11 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if chosenName != "" {
             
-            let location = CLLocation(latitude: annotationLatitude, longitude: annotationLongitude)
+            var requestLocation = CLLocation(latitude: annotationLatitude, longitude: annotationLongitude)
             
-            CLGeocoder().reverseGeocodeLocation(location) { placemarkDizisi, Error in
+            CLGeocoder().reverseGeocodeLocation(requestLocation) { (placemarkArray, Error) in
                 
-                if let placemarks = placemarkDizisi {
+                if let placemarks = placemarkArray {
                     if placemarks.count > 0 {
                         
                         let newPlaceMark = MKPlacemark(placemark: placemarks[0])
@@ -192,13 +192,14 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //Harıtayı oynatmak2 için kod blokları. Eğer add butonuna tıklanırsa bizim koordinatlarımıza git
         if chosenName == "" {
             let location = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-            let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             let region = MKCoordinateRegion(center: location, span: span)
             mapView.setRegion(region, animated: true)
         }
     }
     
-    @IBAction func saveButton(_ sender: Any) {
+    
+    @IBAction func savedButton(_ sender: Any) {
          
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext

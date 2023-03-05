@@ -12,7 +12,7 @@
         <!--List View Controller-->
         <scene sceneID="Fnr-q6-O82">
             <objects>
-                <viewController id="gZi-Bm-Eaz" customClass="ListViewController" customModule="HaritalarUygulamasi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gZi-Bm-Eaz" customClass="ListViewController" customModule="mapApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wqz-is-uY5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
         <!--Maps View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapsViewController" customModule="HaritalarUygulamasi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapsViewController" customModule="mapApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,7 +68,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Save"/>
                                 <connections>
-                                    <action selector="saveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fma-Lh-k6x"/>
+                                    <action selector="savedButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aF8-Nr-fEc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -94,7 +94,6 @@
                         <outlet property="locationTextLabel" destination="pHY-mt-qT9" id="eKc-x7-4DL"/>
                         <outlet property="mapView" destination="zVp-An-GcI" id="xEC-n7-LDk"/>
                         <outlet property="noteTextLabel" destination="AHG-u4-Em3" id="tdo-R0-MG2"/>
-                        <outlet property="saveButton" destination="8gh-Zl-b3A" id="3oR-3W-nEi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
