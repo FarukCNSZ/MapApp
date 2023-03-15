@@ -44,7 +44,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
         //İşaretleme işlemi3
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(locationSelect(gestureRecognizer:)))
-        gestureRecognizer.minimumPressDuration = 3
+        gestureRecognizer.minimumPressDuration = 2
         mapView.addGestureRecognizer(gestureRecognizer)
         
         //verileri aktarmak için8

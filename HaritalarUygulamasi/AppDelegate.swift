@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
+    
+    //CoreData işaretlendiğinde gelir. Projeye CoreData entegrasyonu
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -63,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data Saving support
 
+    
+    //CoreData kullanılacağı için saveContext fonksiyonunu AppDelegate'e ekledik
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
